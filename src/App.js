@@ -35,6 +35,11 @@ function App() {
   return (
     <div className="App">
       <div>
+        <p>Mannual aes working</p>
+        <label>plain text: </label><p>{plaintext}</p>
+        <label>cipher text: </label><p>{ciphertext}</p>
+      </div>
+      <div>
         <input value={plain} onInput={e=>setPlain(e.target.event)}></input>
         <button onClick={encrypt}>encrypt</button>
         <input value={cipher}></input>
