@@ -1,21 +1,48 @@
 import logo from './logo.svg';
 import './App.css';
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
+import { useEffect, useState } from 'react';
 
-
+var aes = require('./aes/tmp/wbaes-smoke-umd.js')
 
 
 function App() {
+  var plaintext = 'hello world'
+  var options = {
+      counter: '1826e4111826e4111826e4111826e411', 
+      encoding: 'str'
+  };
+  var ciphertext = aes.encrypt(plaintext, options);
+  var output = aes.decrypt(ciphertext, options)
+  console.log('primary')
+  console.log(ciphertext, ' : ', output)
+
+  var [plain, setPlain] = useState('')
+  var [cipher, setCipher] = useState('')
+
+  function encrypt() {
+    var tmp = aes.encrypt(plain, options);
+    var v = aes.decrypt(tmp, options)
+    console.log('cipher: ', tmp)
+    console.log('plain: ', v)
+    setCipher(tmp)
+  }
+  function decrypt() {
+    // console.log('cipher: ', cipher)
+    // var tmp_plain = aes.decrypt(cipher, options)
+    // console.log('plain temp: ', tmp_plain)
+    // setPlain(tmp_plain)
+  }
   return (
     <div className="App">
       <div>
-        <TextField id="standard-basic" label="Plain Text" />
-        <Button variant="contained">Encrypt</Button>
+        <input value={plain} onInput={e=>setPlain(e.target.event)}></input>
+        <button onClick={encrypt}>encrypt</button>
+        <input value={cipher}></input>
       </div>
       <div>
-      <TextField id="standard-basic" label="Cipher Text" />
-        <Button variant="contained">Decrypt</Button>
+        <input value={cipher}></input>
+        <button onClick={decrypt}>Decrypt</button>
+        <input value={plain}></input>
       </div>
     </div>
   );
