@@ -30,15 +30,15 @@ function App() {
       <div>
         <p>Mannual aes working</p>
         <label>plain text: </label><p>{plaintext}</p>
-        <label>cipher text: </label><p>{ciphertext}</p>
+        <label>cipher text: </label><p>{btoa(ciphertext)}</p>
       </div>
       <div>
         <input type = "text" value={plain} onChange={e=>setPlain(e.target.value)}></input>
         <button onClick={encrypt}>encrypt</button>
-        <input value={cipher}></input>
+        <input value={btoa(cipher)}></input>
       </div>
       <div>
-        <input value={cipher}></input>
+        <input value={btoa(cipher)}></input>
         <button onClick={decrypt}>Decrypt</button>
         <input value={decryptResult}></input>
       </div>
