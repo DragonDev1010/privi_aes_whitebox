@@ -17,6 +17,8 @@ function App() {
   var [plain, setPlain] = useState('')
   var [cipher, setCipher] = useState('')
   var [decryptResult, setDecryptResult] = useState('')
+  var [hex, setHex] = useState('')
+  var [hexDecrypted, setHexDecrypted] = useState('')
   function encrypt() {
     var tmp = aes.encrypt(plain, options);
     setCipher(tmp)
@@ -24,6 +26,10 @@ function App() {
   function decrypt() {
     var tmp_plain = aes.decrypt(cipher, options)
     setDecryptResult(tmp_plain)
+  }
+  function hexdecrypt() {
+    var temp = aes.decrypt(atob(hex), options)
+    setHexDecrypted(temp)
   }
   return (
     <div className="App">
@@ -38,10 +44,18 @@ function App() {
         <input value={btoa(cipher)}></input>
       </div>
       <div>
-        <input value={btoa(cipher)}></input>
+        <input type = "text" value={btoa(cipher)} onChange={e=>setCipher((e.target.value))}></input>
         <button onClick={decrypt}>Decrypt</button>
         <input value={decryptResult}></input>
       </div>
+      <br/>
+      <div>
+        <input type = "text" value = {hex} onChange={e=>setHex(e.target.value)} placeholder = 'Input Base64-type text'></input>
+        <button onClick={hexdecrypt}>Hex Decrypt</button>
+        <input value = {hexDecrypted} placeholder='Here is the decrypted result'></input>
+      </div>
+      
+
     </div>
   );
 }

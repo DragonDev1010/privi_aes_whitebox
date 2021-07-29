@@ -98,7 +98,6 @@
                 ciphertext = Aes.a2h(ciphertext);
                 break;
             default:
-                console.log(ciphertext)
                 ciphertext = Aes.a2s(ciphertext);
         }
         return ciphertext;
