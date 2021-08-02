@@ -19,6 +19,12 @@ function App() {
   var [decryptResult, setDecryptResult] = useState('')
   var [hex, setHex] = useState('')
   var [hexDecrypted, setHexDecrypted] = useState('')
+
+  var [ecPublicKey, setEcPublicKey] = useState('')
+  var [ecDecryptedKey, setEcDecryptedKey] = useState('')
+  var [aesKey, setAesKey] = useState('')
+  var [aesDecryptedKey, setAesDecryptedKey] = useState('')
+
   function encrypt() {
     var tmp = aes.encrypt(plain, options);
     setCipher(tmp)
@@ -31,9 +37,18 @@ function App() {
     var temp = aes.decrypt(atob(hex), options)
     setHexDecrypted(temp)
   }
+  function encryp_ec_key() {
+    var tmp = aes.encrypt(ecPublicKey, options)
+    setEcDecryptedKey(tmp)
+  }
+
+  function encrypt_aes_key() {
+    var tmp = aes.encrypt(aesKey, options)
+    setAesDecryptedKey(tmp)
+  }
   return (
     <div className="App">
-      <div>
+      {/* <div>
         <p>Mannual aes working</p>
         <label>plain text: </label><p>{plaintext}</p>
         <label>cipher text: </label><p>{btoa(ciphertext)}</p>
@@ -53,9 +68,21 @@ function App() {
         <input type = "text" value = {hex} onChange={e=>setHex(e.target.value)} placeholder = 'Input Base64-type text'></input>
         <button onClick={hexdecrypt}>Hex Decrypt</button>
         <input value = {hexDecrypted} placeholder='Here is the decrypted result'></input>
-      </div>
-      
+      </div> */}
 
+      <div>
+        <p>EC public key</p>
+        <input type = "text" value = {ecPublicKey} onChange = {e=>setEcPublicKey(e.target.value)}></input>
+        <p>Result: {btoa(ecDecryptedKey)}</p>
+        <button onClick = {encryp_ec_key}>Encrypt</button>
+      </div>
+
+      <div>
+        <p>128-bit AES key</p>
+        <input type = "text" value = {aesKey} onChange = {e=>setAesKey(e.target.value)}></input>
+        <p>Result: {btoa(aesDecryptedKey)}</p>
+        <button onClick = {encrypt_aes_key}>Encrypt</button>
+      </div>
     </div>
   );
 }
